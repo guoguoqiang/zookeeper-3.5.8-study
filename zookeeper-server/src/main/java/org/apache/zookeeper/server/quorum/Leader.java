@@ -401,6 +401,7 @@ public class Leader {
                         BufferedInputStream is = new BufferedInputStream(
                                 s.getInputStream());
                         LearnerHandler fh = new LearnerHandler(s, is, Leader.this);
+                        //  接收follower 数据 开启线程处理
                         fh.start();
                     } catch (SocketException e) {
                         error = true;
@@ -470,6 +471,7 @@ public class Leader {
 
         try {
             self.tick.set(0);
+            // 初始化LeaderZookeeperServer数据
             zk.loadData();
 
             leaderStateSummary = new StateSummary(self.getCurrentEpoch(), zk.getLastProcessedZxid());
@@ -477,6 +479,8 @@ public class Leader {
             // Start thread that waits for connection requests from
             // new followers.
             cnxAcceptor = new LearnerCnxAcceptor();
+
+            // 同步数据给从节点
             cnxAcceptor.start();
 
             long epoch = getEpochToPropose(self.getId(), self.getAcceptedEpoch());

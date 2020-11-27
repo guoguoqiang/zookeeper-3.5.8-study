@@ -81,6 +81,11 @@ import org.slf4j.LoggerFactory;
 public class NettyServerCnxnFactory extends ServerCnxnFactory {
     private static final Logger LOG = LoggerFactory.getLogger(NettyServerCnxnFactory.class);
 
+    @Override
+    public ZooKeeperServer getZooKeeperServer() {
+        return super.getZooKeeperServer();
+    }
+
     /**
      * Allow client-server sockets to accept both SSL and plaintext connections
      */
