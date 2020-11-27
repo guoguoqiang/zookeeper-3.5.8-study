@@ -743,6 +743,9 @@ public class FastLeaderElection implements Election {
          */
         /**
          * 具体的选举PK逻辑
+         * 1、比较周期
+         * 2、比较zxid
+         * 3、比较myid
          */
         return ((newEpoch > curEpoch) ||
                 ((newEpoch == curEpoch) &&
